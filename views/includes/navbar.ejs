@@ -1,0 +1,54 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3 sticky-top"
+  style="z-index: 1200; overflow: visible;">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+
+    <!-- Left: Logo -->
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+      <img src="/logo.png" alt="logo" width="100">
+    </a>
+
+    <!-- Center: Search Bar -->
+    <div class="search-bar d-flex align-items-center justify-content-between rounded-pill px-3 py-1 mx-auto">
+      <span class="text-muted small">Anywhere</span>
+      <div class="vr mx-2"></div>
+      <span class="text-muted small">Any week</span>
+      <div class="vr mx-2"></div>
+      <span class="text-muted small">Add guests</span>
+      <button class="btn rounded-circle d-flex align-items-center justify-content-center"
+        style="background-color: #FF385C; width: 25px; height: 25px;">
+        <i class="bi bi-search text-white" style="font-size: 0.7rem;"></i>
+      </button>
+    </div>
+
+    <!-- Right: Links + Icons -->
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center me-3">
+        <a href="/listings/new" class="text-dark fw-semibold text-decoration-none small me-2">Airbnb your home</a>
+        <span class="text-muted small">|</span>
+        <a href="/listings" class="text-dark fw-semibold text-decoration-none small ms-2">Explore</a>
+      </div>
+
+      <i class="bi bi-globe me-4 fs-6"></i>
+
+      <!-- Profile Dropdown -->
+      <div class="border rounded-pill px-2 py-1 d-flex align-items-center dropdown-toggle"
+        id="profileDropdown" role="button" data-bs-toggle="dropdown"
+        aria-expanded="false" style="cursor:pointer;">
+        <i class="bi bi-list me-2"></i>
+        <i class="bi bi-person-circle"></i>
+      </div>
+
+      <!-- Dropdown Menu -->
+      <ul class="dropdown-menu dropdown-menu-end"
+        aria-labelledby="profileDropdown"
+        style="z-index: 2000; position: absolute; margin-right: 0.9rem;">
+        <% if(!currentUser) { %>
+          <li><a class="dropdown-item" href="/signup">Sign up</a></li>
+          <li><a class="dropdown-item" href="/login">Log in</a></li>
+        <% } else { %>
+          <li><a class="dropdown-item" href="/logout">Log out</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

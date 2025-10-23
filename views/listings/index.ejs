@@ -1,0 +1,128 @@
+<% layout("/layouts/boilerplate") %>
+  <!-- ✅ Filter Bar -->
+  <div class="filter-bar bg-white border-top border-bottom py-2 sticky-top">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <!-- Category Scroll -->
+      <div class="d-flex align-items-center overflow-auto flex-nowrap category-scroll">
+
+        <!-- All Category (Default Active) -->
+        <div class="category-item active text-center mx-3" data-category="">
+          <i class="fa-solid fa-list fs-6 mb-1"></i>
+          <p class="small mb-0">All</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Rooms">
+          <i class="fa-solid fa-bed fs-6 mb-1"></i>
+          <p class="small mb-0">Rooms</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Iconic Cities">
+          <i class="fa-solid fa-city fs-6 mb-1"></i>
+          <p class="small mb-0">Iconic Cities</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Mountains">
+          <i class="fa-solid fa-mountain fs-6 mb-1"></i>
+          <p class="small mb-0">Mountains</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Castles">
+          <i class="fa-solid fa-chess-rook fs-6 mb-1"></i>
+          <p class="small mb-0">Castles</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Amazing Pools">
+          <i class="fa-solid fa-water-ladder fs-6 mb-1"></i>
+          <p class="small mb-0">Amazing Pools</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Camping">
+          <i class="fa-solid fa-campground fs-6 mb-1"></i>
+          <p class="small mb-0">Camping</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Arctic">
+          <i class="fa-solid fa-igloo fs-6 mb-1"></i>
+          <p class="small mb-0">Arctic</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Beach">
+          <i class="fa-solid fa-umbrella-beach fs-6 mb-1"></i>
+          <p class="small mb-0">Beach</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Surfing">
+          <i class="fa-solid fa-person-snowboarding fs-6 mb-1"></i>
+          <p class="small mb-0">Surfing</p>
+        </div>
+
+        <div class="category-item text-center mx-3" data-category="Farms">
+          <i class="fa-solid fa-tractor fs-6 mb-1"></i>
+          <p class="small mb-0">Farms</p>
+        </div>
+      </div>
+
+      <!-- Right Buttons -->
+      <div class="d-flex align-items-center flex-shrink-0 ms-3">
+        <button class="btn btn-outline-secondary d-flex align-items-center me-2 rounded-3">
+          <i class="fa-solid fa-sliders me-2"></i> Filters
+        </button>
+
+        <div class="form-check form-switch d-flex align-items-center">
+          <input class="form-check-input" type="checkbox" id="displayTotalSwitch">
+          <label class="form-check-label small ms-1" for="displayTotalSwitch">
+            Display total before taxes
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ✅ End Filter Bar -->
+
+
+  <!-- ✅ Listings Section -->
+  <div class="container py-4">
+    <h5 class="mb-3 fw-semibold">All Listings</h5>
+    <div class="row g-3" id="listings-container">
+      <% for(let listing of allListings) { %>
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 listing-card-wrapper"
+          data-category="<%= listing.category || '' %>" style="display: block;">
+          <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden">
+
+              <!-- Image -->
+              <div class="position-relative">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>"
+                  style="height: 160px; object-fit: cover;">
+
+                <!-- Heart Icon (Font Awesome) -->
+                <button class="btn btn-light btn-sm position-absolute top-0 end-0 m-2 rounded-circle shadow-sm p-1">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+              </div>
+
+              <!-- Card Body -->
+              <div class="card-body p-2">
+                <h6 class="card-title mb-1 fw-semibold text-truncate">
+                  <%= listing.title %>
+                </h6>
+                <p class="text-muted small mb-1">
+                  <i class="fa-solid fa-location-dot me-1"></i>
+                  <%= listing.location || 'Unknown Location' %>
+                </p>
+
+                <p class="fw-semibold mb-0 small">
+                  ₹<%= listing.price.toLocaleString() %> <span class="fw-normal">/night</span>
+                </p>
+              </div>
+
+            </div>
+          </a>
+        </div>
+
+        <% } %>
+    </div>
+  </div>
+

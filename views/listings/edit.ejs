@@ -1,0 +1,88 @@
+<% layout("/layouts/boilerplate") %>
+
+  <!-- Main Content -->
+  <div class="container py-4 d-flex justify-content-center">
+    <div class="airbnb-form w-100" style="max-width: 65%;">
+      <h5 class="mb-3 fw-semibold text-center">Edit Listing</h5>
+
+      <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="listing-form needs-validation"
+        novalidate enctype="multipart/form-data">
+
+        <!-- Title -->
+        <div class="mb-2">
+          <label class="form-label small">Title</label>
+          <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control form-control-sm"
+            required>
+          <div class="invalid-feedback">Please provide a title.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-2">
+          <label class="form-label small">Description</label>
+          <textarea name="listing[description]" class="form-control form-control-sm" rows="2"
+            required><%= listing.description %></textarea>
+          <div class="invalid-feedback">Please provide a description.</div>
+        </div>
+
+        <!-- Image preview -->
+        <div class="mb-3">
+          <label class="form-label small d-block mb-2">Current Image</label>
+          <img src="<%= currImg %>" alt="<%= listing.title %>" class="img-fluid rounded-3 shadow-sm preview-img"
+            style="max-height: 150px; width: auto; object-fit: cover;">
+        </div>
+
+
+        <!-- Image Upload -->
+        <div class="mb-2">
+          <label class="form-label small">Image Upload</label>
+          <input name="image" type="file" class="form-control form-control-sm">
+        </div>
+
+        <!-- Price & Country -->
+        <div class="row g-2 mb-2">
+          <div class="col-md-6">
+            <label class="form-label small">Price</label>
+            <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control form-control-sm"
+              required>
+            <div class="invalid-feedback">Please provide a price.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label small">Country</label>
+            <input name="listing[country]" value="<%= listing.country %>" type="text"
+              class="form-control form-control-sm" required>
+            <div class="invalid-feedback">Please provide a country.</div>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-2">
+          <label class="form-label small">Category</label>
+          <select name="listing[category]" class="form-control form-control-sm" required>
+            <option value="" disabled>Select a category</option>
+            <% const categories=[ "Rooms" , "Iconic Cities" , "Mountains" , "Castles" , "Amazing Pools" , "Camping"
+              , "Arctic" , "Beach" , "Surfing" , "Farms" ]; %>
+              <% categories.forEach(cat=> { %>
+                <option value="<%= cat %>" <%=listing.category===cat ? "selected" : "" %> ><%= cat %>
+                </option>
+                <% }) %>
+          </select>
+          <div class="invalid-feedback">Please select a category.</div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-2">
+          <label class="form-label small">Location</label>
+          <input name="listing[location]" value="<%= listing.location %>" type="text"
+            class="form-control form-control-sm" required>
+          <div class="invalid-feedback">Please provide a location.</div>
+        </div>
+
+
+        <!-- Button -->
+        <button class="btn btn-primary btn-sm px-3 py-1 rounded-3 mt-2">
+          <i class="bi bi-pencil-square me-1"></i> Update
+        </button>
+      </form>
+    </div>
+  </div>
