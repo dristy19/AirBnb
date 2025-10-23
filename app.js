@@ -30,7 +30,7 @@ async function main() {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-        console.log("✅ Connected to Local MongoDB");
+        console.log("✅ Connected to MongoDB Atlas");
     } catch (err) {
         console.error("❌ MongoDB connection error:", err);
     }
