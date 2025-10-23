@@ -4,11 +4,13 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 const userController = require("../controllers/users.js");
+const Listing = require("../models/listing.js"); // Import your Listing model
 
-// ====== Home Page ======
-router.get("/", (req, res) => {
-    res.render("home"); // Make sure views/home.ejs exists
-});
+// ====== Home Page (show all listings) ======
+router.get("/", wrapAsync(async (req, res) => {
+    const listings = await Listing.find({}); // fetch all listings
+    res.render("listings/index", { listings }); // render listings/index.ejs
+}));
 
 // ====== Signup ======
 router.route("/signup")
