@@ -20,16 +20,12 @@ const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/reviews.js");
 const userRouter = require("./routes/user.js");
 
-// const dbUrl = "mongodb://127.0.0.1:27017/airbnb_clone";
+// ====== MongoDB Connection ======
 const dbUrl = process.env.ATLASDB_URL;
-
 
 async function main() {
     try {
-        await mongoose.connect(dbUrl, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        await mongoose.connect(dbUrl);
         console.log("✅ Connected to MongoDB Atlas");
     } catch (err) {
         console.error("❌ MongoDB connection error:", err);
@@ -51,13 +47,13 @@ const sessionOptions = {
     secret: process.env.SECRET || "localdevsecret",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: dbUrl }),
     cookie: {
         httpOnly: true,
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
     },
 };
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -92,6 +88,7 @@ app.use((err, req, res, next) => {
 });
 
 // ====== Start Server ======
-app.listen(8080, () => {
-    console.log("🚀 Server running at http://localhost:8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`🚀 Server running at ${process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`}`);
 });
